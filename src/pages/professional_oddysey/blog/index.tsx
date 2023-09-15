@@ -1,11 +1,10 @@
-import Head from 'next/head';
 import PageLayout from '@/layout/page/Page.layout';
 import { navigation } from '@/data/navigation';
-const Settings = () => {
+const Blog = () => {
   return (
     <>
       <PageLayout
-        pages={[navigation().account.links.settings]}
+        pages={[navigation().professional_oddysey.links.blog]}
         largeSideBar={true}
       >
         <></>
@@ -14,4 +13,4 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default Blog;

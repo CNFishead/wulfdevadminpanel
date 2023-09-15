@@ -36,7 +36,6 @@ export default function App({ Component, pageProps }: AppProps) {
         theme={{
           token: {
             colorPrimary: 'rgb(23, 107, 135)',
-            colorText: 'rgb(231, 231, 231)',
           },
         }}
       >

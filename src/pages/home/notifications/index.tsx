@@ -5,7 +5,10 @@ import NotificationsView from '@/views/notifications/NotificationsView.view';
 const Notifications = () => {
   return (
     <>
-      <PageLayout pages={[navigation().home.links.notifications]}>
+      <PageLayout
+        pages={[navigation().home.links.notifications]}
+        largeSideBar={true}
+      >
         <NotificationsView />
       </PageLayout>
     </>

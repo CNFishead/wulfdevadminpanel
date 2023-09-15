@@ -56,16 +56,9 @@ const PageLayout = (props: Props) => {
 
   return (
     <>
-    <Meta title={props.pages ? props.pages[props.pages.length - 1].title : ''} />
-      <Head>
-        <title>
-          Truthcasting Studio -{' '}
-          {props.pages ? props.pages[props.pages.length - 1].title : ''}
-        </title>
-        <meta name="description" content="Truthcasting Studio" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Meta
+        title={props.pages ? `Howard Panel ${props.pages[props.pages.length - 1].title}` : ''}
+      />
 
       <div
         className={`${styles.container} ${
@@ -114,14 +107,7 @@ const PageLayout = (props: Props) => {
 
               <div className={styles.childrenWrapper}>
                 <div className={styles.childrenContainer}>
-                  {getPageBlockData() ? (
-                    <BlockedMessage
-                      neededFeature={props.neededFeature}
-                      type={getPageBlockData() as any}
-                    />
-                  ) : (
-                    <>{props.children}</>
-                  )}
+                  <>{props.children}</>
                 </div>
               </div>
             </div>

@@ -1,12 +1,10 @@
+import { FaBlog, FaBriefcase, FaProjectDiagram } from 'react-icons/fa';
 import { IoIosNotifications } from 'react-icons/io';
-import {
-  MdSettings,
-} from 'react-icons/md';
+import { MdSettings } from 'react-icons/md';
 import { RiHome2Fill } from 'react-icons/ri';
+import { PiCertificateFill } from 'react-icons/pi';
 
-export const navigation = (options?: {
-  loggedInData?: { user: any };
-}) => {
+export const navigation = (options?: { loggedInData?: { user: any } }) => {
   return {
     home: {
       title: 'Home',
@@ -20,6 +18,32 @@ export const navigation = (options?: {
           title: 'Notifications',
           link: '/home/notifications',
           icon: <IoIosNotifications />,
+        },
+      },
+    },
+
+    professional_oddysey: {
+      title: 'Professional Oddysey',
+      links: {
+        work_history: {
+          title: 'Work History',
+          link: '/professional_oddysey/work_history',
+          icon: <FaBriefcase />,
+        },
+        projects: {
+          title: 'Projects',
+          link: '/professional_oddysey/projects',
+          icon: <FaProjectDiagram />,
+        },
+        certificates: {
+          title: 'Certificates',
+          link: '/professional_oddysey/certificates',
+          icon: <PiCertificateFill />,
+        },
+        blog: {
+          title: 'Blog',
+          link: '/professional_oddysey/blog',
+          icon: <FaBlog />,
         },
       },
     },
