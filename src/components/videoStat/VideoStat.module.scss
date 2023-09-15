@@ -1,0 +1,20 @@
+@import '../../styles/globals.scss';
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  gap: 10px;
+  padding: 3px 10px;
+  border-radius: 5px;
+  background-color: $color-light-blue;
+
+  p {
+    font-size: 13px;
+    color: $color-blue;
+  }
+  .icon {
+    font-size: 13px;
+    color: $color-blue;
+  }
+}

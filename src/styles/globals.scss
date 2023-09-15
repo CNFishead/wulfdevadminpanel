@@ -1,0 +1,36 @@
+// Variables
+$white: #fff;
+$color-dark: #23262a;
+$color-light: #f8f9fd;
+$color-blue: #557797;
+$color-blue-2: #55779791;
+
+$color-dark-blue: #3b799d;
+$color-light-blue: #e1eaef;
+$color-lightish-blue: #c4cbce;
+
+$color-dark-dark-blue: #173c52;
+
+$mobile-width: 768px;
+$tablet-width: 1250px;
+
+$header-height: 4.4rem;
+
+$animation: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+$simple-animation: all 0.2s ease-in-out;
+
+@mixin mobile {
+  @media (max-width:#{$mobile-width}) {
+    @content;
+  }
+}
+@mixin tablet {
+  @media (max-width:#{$tablet-width}) {
+    @content;
+  }
+}
+@mixin desktop {
+  @media (min-width:#{$mobile-width}) {
+    @content;
+  }
+}

@@ -1,0 +1,57 @@
+@import '../../styles/globals.scss';
+.videoContainer {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+  &.live {
+    position: relative;
+    box-shadow: 0 5px rgba(240, 46, 46, 0.4), 0 10px rgba(240, 46, 46, 0.3),
+      0 15px rgba(240, 46, 46, 0.2), 0 20px rgba(240, 46, 46, 0.1),
+      0 25px rgba(240, 46, 46, 0.05);
+    &::after {
+      content: 'LIVE';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 5px;
+      border-radius: 5px;
+      background-color: #be2528;
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      animation: pulseRed 2s infinite;
+    }
+    &.prestream {
+      &::after {
+        content: 'PRESTREAM';
+        animation: pulseBlue 2s infinite;
+
+        background-color: $color-blue;
+      }
+      box-shadow: 0 5px #557797, 0 10px rgba(65, 92, 118, 0.768),
+        0 15px rgba(60, 99, 136, 0.562), 0 20px #5577974f,
+        0 25px rgba(32, 46, 59, 0.268);
+    }
+  }
+}
+
+@keyframes pulseRed {
+  0% {
+    box-shadow: 0 0 0 0 #8d232581;
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+}
+
+@keyframes pulseBlue {
+  0% {
+    box-shadow: 0 0 0 0 #314558ac;
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+}
