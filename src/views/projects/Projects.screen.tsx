@@ -1,20 +1,21 @@
 import React from 'react';
-import styles from './WorkHistory.module.scss';
+import styles from './Projects.module.scss';
 import { Button, Table, Form } from 'antd';
 import SearchWrapper from '@/layout/searchWrapper/SearchWrapper.layout';
 import uesGetWorkHistory from '@/state/workhistory/uesGetWorkHistory';
 import { BsPlus, BsTrash2Fill } from 'react-icons/bs';
 import Link from 'next/link';
 import { Modal } from 'antd/lib';
-import CreateNewExperience from './modals/CreateNewExperience.modal';
+// import CreateNewExperience from './modals/CreateNewExperience.modal';
 import { usePostWorkHistory } from '@/state/workhistory/usePostWorkHistory';
 import useRemoveWorkHistory from '@/state/workhistory/useRemoveWorkHistory';
+import useGetFeaturedProjects from '@/state/portfolio/useGetFeaturedProjects';
 
-const WorkHistory = () => {
+const Projects = () => {
   const { mutate: postWorkHistory } = usePostWorkHistory();
   const { mutate: deleteWorkHistory } = useRemoveWorkHistory();
   const [form] = Form.useForm();
-  const { data, isFetching } = uesGetWorkHistory();
+  const { data, isFetching } = useGetFeaturedProjects();
   const [inputValues, setInputValues] = React.useState(['']); // Initial input value
 
   return (
@@ -25,17 +26,8 @@ const WorkHistory = () => {
             icon: <BsPlus />,
             onClick: () =>
               Modal.confirm({
-                title: 'Add Work History',
-                content: (
-                  <CreateNewExperience
-                    form={form}
-                    inputValues={inputValues}
-                    onSubmitHandler={(values) => {
-                      postWorkHistory(values);
-                      Modal.destroyAll();
-                    }}
-                  />
-                ),
+                title: 'Add New Project',
+                content: <></>,
                 // remove ok button
                 okButtonProps: { style: { display: 'none' } },
                 onCancel: () => {
@@ -45,12 +37,25 @@ const WorkHistory = () => {
               }),
 
             type: 'primary',
-            toolTip: 'Add Work History',
+            toolTip: 'Add Project',
           },
         ]}
-        filters={[]}
+        filters={[
+          {
+            key: '',
+            label: 'All Projects',
+          },
+          {
+            key: 'isFeatured;true',
+            label: 'Featured',
+          },
+          {
+            key: 'isFeatured;false',
+            label: 'Not Featured',
+          },
+        ]}
         sort={[]}
-        placeholder="Search Work History"
+        placeholder="Search Projects"
         total={data?.totalCount}
         queryKey="videoList"
         disableButtons={isFetching}
@@ -59,32 +64,9 @@ const WorkHistory = () => {
         <Table
           columns={[
             {
-              title: 'Name',
+              title: 'Project Name',
               dataIndex: 'name',
               key: 'name',
-            },
-            {
-              title: 'Job Title',
-              dataIndex: 'jobTitle',
-              key: 'jobTitle',
-            },
-            {
-              title: 'Start Date',
-              dataIndex: 'startDate',
-              key: 'startDate',
-              render: (text: any) => {
-                return new Date(text).toLocaleDateString();
-              },
-            },
-            {
-              title: 'End Date',
-              dataIndex: 'endDate',
-              key: 'endDate',
-              render: (text: any) => {
-                // if empty or null, return 'Present'
-                if (!text) return 'Present';
-                return new Date(text).toLocaleDateString();
-              },
             },
             {
               title: 'Actions',
@@ -94,9 +76,9 @@ const WorkHistory = () => {
                 return (
                   <div style={{ display: 'flex', width: '100%', gap: '10px' }}>
                     {/* render a next/link as a button */}
-                    {/* <Link href={`/admin/receipts/${record._id}`}>
+                    <Link href={`/professional_oddysey/projects/${record._id}`}>
                       <Button type="primary">Edit</Button>
-                    </Link> */}
+                    </Link>
 
                     <Button
                       onClick={() =>
@@ -121,7 +103,7 @@ const WorkHistory = () => {
               },
             },
           ]}
-          dataSource={data?.data}
+          dataSource={data?.projects}
           rowKey="_id"
           pagination={false}
         />
@@ -130,4 +112,4 @@ const WorkHistory = () => {
   );
 };
 
-export default WorkHistory;
+export default Projects;

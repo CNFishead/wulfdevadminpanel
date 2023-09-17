@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  .projectTitleContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  .contentContainer {
+    display: flex;
+    .leftContainer {
+      display: flex;
+      width: 50%;
+      .imageUploadContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .imageContainer {
+          width: 100%;
+        }
+        .imageUploadText {
+          // muted theme
+          display: flex;
+          color: var(--primary-light);
+          font-size: 0.8rem;
+          margin: 0 0 0.5rem 0;
+        }
+      }
+    }
+    .rightContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}
