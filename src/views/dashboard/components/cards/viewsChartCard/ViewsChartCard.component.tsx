@@ -1,5 +1,4 @@
 import styles from './ViewsChartCard.module.scss';
-import { useDateRangeStore } from '@/state/analytics/dateRange';
 import { PieChart, ResponsiveContainer, Pie, Tooltip } from 'recharts';
 import { Button, Skeleton } from 'antd';
 import { useEffect } from 'react';

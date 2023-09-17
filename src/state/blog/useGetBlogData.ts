@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from '@/utils/axios';
-import { useSearchStore } from '../../search/search';
+import { useSearchStore } from '../search/search';
 
 //query to retrieve user videos
 export const fetchBlogs = async (options?: {

@@ -1,5 +1,4 @@
 import CopyField from '@/components/copyField/CopyField.component';
-import { useSelectedPlaylist } from '@/state/playlist/playlist';
 import { Checkbox, Form, Input, message, Skeleton } from 'antd';
 import Link from 'next/link';
 import { ReactNode, useEffect, useState } from 'react';
