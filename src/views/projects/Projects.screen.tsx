@@ -10,6 +10,13 @@ import useGetFeaturedProjects from '@/state/portfolio/useGetFeaturedProjects';
 import useRemoveProject from '@/state/portfolio/useRemoveProject';
 import { NProgressLoader } from '@/components/nprogress/NProgressLoader.component';
 import Error from '@/components/error/Error.component';
+import {
+  FaCheck,
+  FaCheckCircle,
+  FaGithub,
+  FaTimesCircle,
+} from 'react-icons/fa';
+import { LiaExternalLinkAltSolid } from 'react-icons/lia';
 
 const Projects = () => {
   const { mutate: deleteProject } = useRemoveProject();
@@ -83,6 +90,55 @@ const Projects = () => {
                 title: 'Project Name',
                 dataIndex: 'name',
                 key: 'name',
+              },
+              {
+                title: 'Featured Project',
+                dataIndex: 'isFeatured',
+                key: 'isFeatured',
+                render: (text: any, record: any) => {
+                  return (
+                    <div>
+                      {record.isFeatured ? (
+                        <span style={{ color: 'green' }}>
+                          <FaCheckCircle />
+                        </span>
+                      ) : (
+                        <span style={{ color: 'red' }}>
+                          <FaTimesCircle />
+                        </span>
+                      )}
+                    </div>
+                  );
+                },
+              },
+              {
+                title: "Project URL's",
+                // need to target both liveProjectURL and githubUrl
+                dataIndex: ['liveProjectURL', 'githubUrl'],
+                key: 'urls',
+                // render buttons for each url
+                render: (text: any, record: any) => {
+                  return (
+                    <div
+                      style={{ display: 'flex', width: '100%', gap: '10px' }}
+                    >
+                      {
+                        // if liveProjectURL exists, render a button
+                        record.liveProjectURL && (
+                          <Button type="default" href={record.liveProjectURL}>
+                            <LiaExternalLinkAltSolid />
+                          </Button>
+                        )
+                      }
+                      {/* if githubUrl exists, render a button */}
+                      {record.githubUrl && (
+                        <Button type="default" href={record.githubUrl}>
+                          <FaGithub />
+                        </Button>
+                      )}
+                    </div>
+                  );
+                },
               },
               {
                 title: 'Actions',

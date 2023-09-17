@@ -1,4 +1,4 @@
-import { FaBlog, FaBriefcase, FaProjectDiagram } from 'react-icons/fa';
+import { FaBlog, FaBriefcase, FaCamera, FaImage, FaProjectDiagram } from 'react-icons/fa';
 import { IoIosNotifications } from 'react-icons/io';
 import { MdSettings } from 'react-icons/md';
 import { RiHome2Fill } from 'react-icons/ri';
@@ -44,6 +44,21 @@ export const navigation = (options?: { loggedInData?: { user: any } }) => {
           title: 'Blog',
           link: '/professional_oddysey/blog',
           icon: <FaBlog />,
+        },
+      },
+    },
+    media_library: {
+      title: 'Media Library',
+      links: {
+        images: {
+          title: 'Images',
+          link: '/media_library/images',
+          icon: <FaImage />,
+        },
+        videos: {
+          title: 'Videos',
+          link: '/media_library/videos',
+          icon: <FaCamera />,
         },
       },
     },
