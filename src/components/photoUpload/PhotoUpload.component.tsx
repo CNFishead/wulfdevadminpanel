@@ -57,6 +57,14 @@ const PhotoUpload = (props: Props) => {
     }
   }, [props.default]);
 
+  useEffect(() => {
+    // set the image to null when component unmounts
+    return () => {
+      setImageUrl('');
+    };
+  }
+  , []);
+
   const handleChange: UploadProps['onChange'] = async (
     info: UploadChangeParam<UploadFile>
   ) => {
@@ -102,7 +110,7 @@ const PhotoUpload = (props: Props) => {
             action={
               props.action
                 ? props.action
-                : 'https://api.truthcasting.com/api/v1/upload'
+                : 'https://api.austinhoward.dev/api/v1/upload'
             }
             headers={{
               Authorization: `Bearer ${localStorage.getItem('token')}`,

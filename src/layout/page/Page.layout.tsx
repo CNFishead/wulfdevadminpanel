@@ -31,28 +31,6 @@ const PageLayout = (props: Props) => {
   );
 
   const { data: loggedInData } = useUser();
-  const getPageBlockData: () =>
-    | Boolean
-    | 'blacklist'
-    | 'feature'
-    | 'verification' = () => {
-    if (!props.enableBlockCheck) return false;
-    if (loggedInData.user.isBlacklisted) {
-      return 'blacklist';
-    }
-
-    if (!loggedInData.user.isTruthcastingVerified) {
-      return 'verification';
-    }
-
-    if (props.neededFeature) {
-      if (!hasFeature(loggedInData.user, props.neededFeature)) {
-        return 'feature';
-      }
-    }
-
-    return false as Boolean;
-  };
 
   return (
     <>
@@ -76,11 +54,9 @@ const PageLayout = (props: Props) => {
             <div
               className={`${styles.content} ${
                 controlLayoutOpen &&
-                !getPageBlockData() &&
                 styles.controlContainerActive
               } ${
                 props.controlNav &&
-                !getPageBlockData() &&
                 !props.hideControlLayout &&
                 styles.controlBarActive
               }`}
@@ -89,7 +65,6 @@ const PageLayout = (props: Props) => {
               }}
             >
               {props.controlNav &&
-                !getPageBlockData() &&
                 !props.hideControlLayout && (
                   <>
                     <div className={styles.controlContainer}>

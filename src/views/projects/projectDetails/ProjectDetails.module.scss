@@ -1,22 +1,42 @@
 .container {
   display: flex;
   flex-direction: column;
+  height: 100%;
   .projectTitleContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
+    font-size: 1.2rem;
+    .projectTitleHeader {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    .projectTitle {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    .projectId {
+      font-weight: 300;
+      color: gray;
+    }
   }
   .contentContainer {
     display: flex;
+    height: 100%;
     .leftContainer {
       display: flex;
+      flex-direction: column;
       width: 50%;
+      height: 100%;
       .imageUploadContainer {
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
+        width: 100%;
         .imageContainer {
           width: 100%;
         }
@@ -32,7 +52,8 @@
     .rightContainer {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      padding: 2%;
+      width: 50%;
     }
   }
 }

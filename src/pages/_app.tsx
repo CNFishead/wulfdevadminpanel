@@ -1,5 +1,6 @@
-import '@/styles/globals.scss';
 import '@/styles/app.scss';
+import '@/styles/globals.css';
+import '@/styles/globals.scss';
 import type { AppProps } from 'next/app';
 import { ConfigProvider } from 'antd';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';

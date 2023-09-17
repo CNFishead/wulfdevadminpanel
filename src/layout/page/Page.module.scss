@@ -79,6 +79,7 @@
     background-color: $color-light;
     height: 100dvh;
     grid-area: content;
+    position: relative;
 
     display: grid;
     grid-template-rows: 1fr;
@@ -151,10 +152,8 @@
       flex-direction: column;
       overflow-y: auto;
       padding-bottom: $header-height;
-      overflow-y: auto;
-
+      
       .childrenContainer {
-        position: relative;
         padding: 20px;
         max-width: 1500px;
         width: 100%;

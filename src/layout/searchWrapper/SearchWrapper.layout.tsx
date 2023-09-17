@@ -20,6 +20,7 @@ import styles from './SearchWrapper.module.scss';
 import type { MenuProps } from 'antd';
 import { MdFilter, MdSort } from 'react-icons/md';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const { Search } = Input;
 
@@ -29,6 +30,7 @@ type Props = {
     onClick: () => void;
     type: 'link' | 'text' | 'primary' | 'dashed' | 'default' | undefined;
     toolTip?: string;
+    href?: string;
     shouldPulse?: boolean;
   }[];
   filters?: {
@@ -180,20 +182,31 @@ const SearchWrapper = (props: Props) => {
 
           {props.buttons?.map((button, indx) => (
             <Tooltip
+              key={button.type}
               title={button.toolTip}
               placement="bottomRight"
-              key={indx + 'tooltip' + button.toolTip}
             >
-              <Button
-                type={button.type}
-                shape="round"
-                className={`${styles.button} ${
-                  button.shouldPulse && styles.pulse
-                }`}
-                onClick={button.onClick}
-              >
-                {button.icon}
-              </Button>
+              {button.href ? (
+                <Link href={button.href}>
+                  <Button
+                    type={button.type}
+                    shape="round"
+                    className={styles.button}
+                    onClick={button.onClick}
+                  >
+                    {button.icon}
+                  </Button>
+                </Link>
+              ) : (
+                <Button
+                  type={button.type}
+                  shape="round"
+                  className={styles.button}
+                  onClick={button.onClick}
+                >
+                  {button.icon}
+                </Button>
+              )}
             </Tooltip>
           ))}
         </div>

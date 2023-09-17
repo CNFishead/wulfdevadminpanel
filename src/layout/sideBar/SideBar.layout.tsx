@@ -45,7 +45,7 @@ const SideBar = (props: Props) => {
 
         <Image
               src="https://res.cloudinary.com/wulfdev/image/upload/v1694791729/devportfolio/brand-logo-photo_eijw5h.png"
-          width={160}
+          width={100}
           height={150}
           className={styles.logo + ' ' + styles.truthcastingLogo}
           style={{
