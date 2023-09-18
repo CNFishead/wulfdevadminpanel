@@ -9,7 +9,7 @@ const fetchImages = async (nextCursor: string | undefined) => {
 
 // react-query hook to fetch images from cloudinary
 export default (nextCursor?: string) => {
-  return useQuery(['cloudinary'], () => fetchImages(nextCursor), {
+  return useQuery(['cloudinary', nextCursor], () => fetchImages(nextCursor), {
     refetchOnWindowFocus: false,
     onError: (error: Error) => {
       errorHandler(error);
