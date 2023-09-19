@@ -1,7 +1,12 @@
 import useGetCloudinaryImages from '@/state/media/useGetCloudinaryImages';
 import styles from './ImagesScreen.module.scss';
 import React from 'react';
-import { Button, Image, Pagination } from 'antd';
+import { Button, Image, Pagination, Modal } from 'antd';
+import Link from 'next/link';
+import SelectableItem from '@/components/selectableItem/SelectableItem.component';
+
+import type { MenuProps } from 'antd';
+import { FaTrash } from 'react-icons/fa';
 
 const ImagesScreen = () => {
   const [nextCursor, setNextCursor] = React.useState<string>('');
@@ -36,33 +41,50 @@ const ImagesScreen = () => {
     <div className={styles.container}>
       <div className={styles.titleContainer}>
         <h1 className={styles.title}>Cloudinary Images</h1>
+        <Link href={'/media-library/cloudinary'} className={styles.seeMoreLink}>
+          <Button>See All</Button>
+        </Link>
       </div>
       <div className={styles.videosContainer}>
         {
           // @ts-ignore
           cloudinaryData?.data?.resources?.map((resource) => {
             return (
-              <div className={styles.videoContainer} key={resource.asset_id}>
-                <div className={styles.videoTitleContainer}>
-                  <h3 className={styles.videoTitle}>{resource.public_id}</h3>
-                </div>
-                <Image
-                  src={resource.secure_url}
-                  width={300}
-                  height={300}
-                  alt="video"
-                />
-              </div>
+                <SelectableItem
+                  key={resource.asset_id}
+                  imageUrl={resource.secure_url}
+                  link={''}
+                  options={[
+                    {
+                      label: 'Delete',
+                      key: '1',
+                      danger: true,
+                      icon: <FaTrash />,
+                      onClick: () => {
+                        Modal.confirm({
+                          title: 'Are you sure you want to delete this video?',
+                          content: 'This action cannot be undone.',
+                          okText: 'Yes',
+                          cancelText: 'No',
+                          onOk: () => {
+                            // delete resource
+                          },
+                        });
+                      },
+                    },
+                  ]}
+                >
+                </SelectableItem>
             );
           })
         }
       </div>
       <div className={styles.paginationContainer}>
-        {cloudinaryData?.data?.next_cursor && (
-          <Button onClick={fetchNextPage}>Next</Button>
-        )}
         {prevCursors?.current.length > 0 && (
           <Button onClick={fetchPreviousPage}>Prev</Button>
+        )}
+        {cloudinaryData?.data?.next_cursor && (
+          <Button onClick={fetchNextPage}>Next</Button>
         )}
       </div>
     </div>
