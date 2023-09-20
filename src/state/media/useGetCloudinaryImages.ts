@@ -3,7 +3,7 @@ import errorHandler from '@/utils/errorHandler';
 import { useQuery } from '@tanstack/react-query';
 
 const fetchImages = async (nextCursor: string | undefined) => {
-  const { data } = await axios.get(`/util/cloudinary?nextCursor=${nextCursor}`);
+  const { data } = await axios.get(`/cloudinary?nextCursor=${nextCursor}`);
   return data;
 };
 

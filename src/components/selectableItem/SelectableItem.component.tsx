@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { AiOutlineEllipsis } from 'react-icons/ai';
 import { Dropdown } from 'antd';
 import type { MenuProps } from 'antd';
+import { NProgressLoader } from '../nprogress/NProgressLoader.component';
 
 type Props = {
   imageUrl: string;
@@ -13,6 +14,7 @@ type Props = {
   overlayChildren?: React.ReactNode;
   children: React.ReactNode;
   options: MenuProps['items'];
+  loading?: boolean;
 };
 
 const SelectableItem = (props: Props) => {
@@ -23,6 +25,7 @@ const SelectableItem = (props: Props) => {
       href={hoverEllipsis || props.link === '' ? '#' : props.link}
     >
       <div className={styles.container}>
+        {props.loading && <NProgressLoader />}
         <div className={styles.imageContainer}>
           <Image
             src={props.imageUrl}

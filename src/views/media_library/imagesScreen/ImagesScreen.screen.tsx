@@ -7,11 +7,14 @@ import SelectableItem from '@/components/selectableItem/SelectableItem.component
 
 import type { MenuProps } from 'antd';
 import { FaTrash } from 'react-icons/fa';
+import useRemoveCloudinaryImage from '@/state/media/useRemoveCloudinaryImage';
+import { NProgressLoader } from '@/components/nprogress/NProgressLoader.component';
 
 const ImagesScreen = () => {
   const [nextCursor, setNextCursor] = React.useState<string>('');
   const prevCursors = React.useRef<string[]>([]); // Initialize as an empty array
-
+  const { mutate: deleteImage, isLoading: deleteLoading } =
+    useRemoveCloudinaryImage();
   const { data: cloudinaryData, isLoading: cloudinaryLoading } =
     useGetCloudinaryImages(nextCursor);
 
@@ -39,9 +42,10 @@ const ImagesScreen = () => {
 
   return (
     <div className={styles.container}>
+      {(cloudinaryLoading || deleteLoading) && <NProgressLoader />}
       <div className={styles.titleContainer}>
         <h1 className={styles.title}>Cloudinary Images</h1>
-        <Link href={'/media-library/cloudinary'} className={styles.seeMoreLink}>
+        <Link href={'/media_library/cloudinary'} className={styles.seeMoreLink}>
           <Button>See All</Button>
         </Link>
       </div>
@@ -50,31 +54,32 @@ const ImagesScreen = () => {
           // @ts-ignore
           cloudinaryData?.data?.resources?.map((resource) => {
             return (
-                <SelectableItem
-                  key={resource.asset_id}
-                  imageUrl={resource.secure_url}
-                  link={''}
-                  options={[
-                    {
-                      label: 'Delete',
-                      key: '1',
-                      danger: true,
-                      icon: <FaTrash />,
-                      onClick: () => {
-                        Modal.confirm({
-                          title: 'Are you sure you want to delete this video?',
-                          content: 'This action cannot be undone.',
-                          okText: 'Yes',
-                          cancelText: 'No',
-                          onOk: () => {
-                            // delete resource
-                          },
-                        });
-                      },
+              <SelectableItem
+                key={resource.asset_id}
+                imageUrl={resource.secure_url}
+                link={''}
+                options={[
+                  {
+                    label: 'Delete',
+                    key: '1',
+                    danger: true,
+                    icon: <FaTrash />,
+                    onClick: () => {
+                      Modal.confirm({
+                        title: 'Are you sure you want to delete this video?',
+                        content: 'This action cannot be undone.',
+                        okText: 'Yes',
+                        cancelText: 'No',
+                        onOk: () => {
+                          deleteImage(resource.public_id);
+                        },
+                      });
                     },
-                  ]}
-                >
-                </SelectableItem>
+                  },
+                ]}
+              >
+                <></>
+              </SelectableItem>
             );
           })
         }

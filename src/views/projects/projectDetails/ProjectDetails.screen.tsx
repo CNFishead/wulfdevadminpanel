@@ -81,8 +81,7 @@ const ProjectDetails = () => {
                   label=" "
                   form={form}
                   action={
-                    // `${process.env.API_URL}/upload/cloudinary`
-                    'http://localhost:5000/api/v1/upload/cloudinary'
+                    `${process.env.API_URL}/upload/cloudinary`
                   }
                   placeholder="Upload a Project photo"
                 />

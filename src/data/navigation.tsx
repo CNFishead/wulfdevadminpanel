@@ -1,4 +1,10 @@
-import { FaBlog, FaBriefcase, FaCamera, FaImage, FaProjectDiagram } from 'react-icons/fa';
+import {
+  FaBlog,
+  FaBriefcase,
+  FaCamera,
+  FaImage,
+  FaProjectDiagram,
+} from 'react-icons/fa';
 import { IoIosNotifications } from 'react-icons/io';
 import { MdSettings } from 'react-icons/md';
 import { RiHome2Fill } from 'react-icons/ri';
@@ -52,13 +58,14 @@ export const navigation = (options?: { loggedInData?: { user: any } }) => {
       links: {
         images: {
           title: 'Images',
-          link: '/media_library/images',
+          link: '/media_library/cloudinary',
           icon: <FaImage />,
         },
         videos: {
           title: 'Videos',
           link: '/media_library/videos',
           icon: <FaCamera />,
+          disabled: true,
         },
       },
     },
@@ -69,6 +76,7 @@ export const navigation = (options?: { loggedInData?: { user: any } }) => {
           title: 'Account Settings',
           link: '/settings',
           icon: <MdSettings />,
+          disabled: true,
         },
       },
     },

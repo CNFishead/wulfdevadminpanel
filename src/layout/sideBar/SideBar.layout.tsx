@@ -44,7 +44,7 @@ const SideBar = (props: Props) => {
         /> */}
 
         <Image
-              src="https://res.cloudinary.com/wulfdev/image/upload/v1694791729/devportfolio/brand-logo-photo_eijw5h.png"
+          src="https://res.cloudinary.com/wulfdev/image/upload/v1694791729/devportfolio/brand-logo-photo_eijw5h.png"
           width={100}
           height={150}
           className={styles.logo + ' ' + styles.truthcastingLogo}
@@ -76,7 +76,9 @@ const SideBar = (props: Props) => {
                           href={subItem.link}
                           className={`${styles.link} ${
                             props.page.title === subItem.title && styles.active
-                          } ${subItem.pulse && styles.pulse}`}
+                          } ${subItem.pulse && styles.pulse} ${
+                            subItem.disabled && styles.disabled
+                          }`}
                           onClick={() => toggleSideBar()}
                         >
                           <span className={styles.icon}>{subItem.icon}</span>

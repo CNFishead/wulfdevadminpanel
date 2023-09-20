@@ -18,6 +18,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
 import Cropper from 'antd-img-crop';
 import Loader from '../loader/Loader.component';
+import errorHandler from '@/utils/errorHandler';
 
 type Props = {
   default?: string;
@@ -62,8 +63,7 @@ const PhotoUpload = (props: Props) => {
     return () => {
       setImageUrl('');
     };
-  }
-  , []);
+  }, []);
 
   const handleChange: UploadProps['onChange'] = async (
     info: UploadChangeParam<UploadFile>
@@ -86,6 +86,7 @@ const PhotoUpload = (props: Props) => {
     if (info.file.status === 'error') {
       setLoading(false);
       message.error('Image Upload Failed');
+      errorHandler(info.file.error);
     }
   };
 

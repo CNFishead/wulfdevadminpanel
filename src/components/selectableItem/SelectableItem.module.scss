@@ -1,8 +1,9 @@
 @import '@/styles/globals.scss';
 .wrapper {
   width: 100%;
+  max-width: 300px;
   height: 100%;
-
+  position: relative;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -10,6 +11,7 @@
   flex-direction: column;
   .container {
     width: 100%;
+    position: relative;
     .imageContainer {
       position: relative;
       transition: $simple-animation;
