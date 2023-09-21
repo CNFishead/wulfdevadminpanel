@@ -48,5 +48,34 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 20px;
+    @include tablet {
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 10px;
+    }
+    @include mobile {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    .imageContainer {
+      @include mobile {
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+}
+.imageUploadContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  .imageContainer {
+    width: 100%;
+  }
+  .imageUploadText {
+    // muted theme
+    display: flex;
+    color: var(--primary-light);
+    font-size: 0.8rem;
+    margin: 0 0 0.5rem 0;
   }
 }

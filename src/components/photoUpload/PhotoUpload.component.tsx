@@ -31,6 +31,9 @@ type Props = {
   isAvatar?: boolean;
   imgStyle?: React.CSSProperties;
   form: FormInstance;
+  // anonymous function that takes in a function
+  // such as an onClose function
+  onFinishAction?: (anonFunction: () => void) => void;
 };
 
 const PhotoUpload = (props: Props) => {
@@ -82,11 +85,18 @@ const PhotoUpload = (props: Props) => {
       );
 
       message.success('Image Uploaded');
+      // if the onFinishAction prop is passed in
+      // then call it with the onClose function
+      if (props.onFinishAction) {
+        props.onFinishAction(() => {
+          inputRef.current?.onCancel();
+        });
+      }
     }
     if (info.file.status === 'error') {
       setLoading(false);
-      message.error('Image Upload Failed');
-      errorHandler(info.file.error);
+      // message.error('Image Upload Failed');
+      errorHandler(info.file.response);
     }
   };
 

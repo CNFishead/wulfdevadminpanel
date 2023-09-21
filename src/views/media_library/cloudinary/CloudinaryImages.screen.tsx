@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './CloudinaryImages.module.scss';
 import useGetCloudinaryImages from '@/state/media/useGetCloudinaryImages';
 import { Modal, Button, Form, Upload, UploadProps, message } from 'antd';
-import { FaTrash, FaUpload } from 'react-icons/fa';
+import { FaCopy, FaExternalLinkAlt, FaTrash, FaUpload } from 'react-icons/fa';
 import useRemoveCloudinaryImage from '@/state/media/useRemoveCloudinaryImage';
 import SelectableItem from '@/components/selectableItem/SelectableItem.component';
 import { NProgressLoader } from '@/components/nprogress/NProgressLoader.component';
@@ -12,10 +12,12 @@ import { useQueryClient } from '@tanstack/react-query';
 import axios from '@/utils/axios';
 import { useRouter } from 'next/router';
 import { BsFillTrashFill } from 'react-icons/bs';
+import ImageDetails from './components/imageDetails/ImageDetails.component';
 
 const CloudinaryImages = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
+  const [imageUrl, setImageUrl] = React.useState<string>('');
   const [nextCursor, setNextCursor] = React.useState<string>('');
   const [showModal, setShowModal] = React.useState<boolean>(false);
   const [form] = Form.useForm();
@@ -49,32 +51,47 @@ const CloudinaryImages = () => {
   return (
     <div className={styles.container}>
       <Modal
-        visible={showModal}
+        open={showModal}
         onCancel={() => setShowModal(false)}
         footer={null}
         title={'Upload Image'}
       >
-        <PhotoUpload
-          form={form}
-          name={'image'}
-          label={'Image'}
-          placeholder={'Select an image'}
-          action={'/api/upload'}
-          listType={'picture-card'}
-          tooltip={'Upload an image'}
-        />
+        <Form form={form} onFinish={() => {}}>
+          <div className={styles.imageUploadContainer}>
+            <div className={styles.imageContainer}>
+              <PhotoUpload
+                name="photo"
+                default={imageUrl}
+                label=""
+                form={form}
+                action={
+                  process.env.NODE_ENV === 'production'
+                    ? `${process.env.API_URL}/upload/cloudinary`
+                    : 'http://localhost:5000/api/v1/upload/cloudinary'
+                }
+                placeholder="Upload a Project photo"
+                onFinishAction={() => {
+                  queryClient.invalidateQueries(['cloudinary']);
+                  setImageUrl('');
+                  setShowModal(!showModal);
+                }}
+              />
+            </div>
+          </div>
+        </Form>
       </Modal>
 
       {(cloudinaryLoading || deleteLoading) && <NProgressLoader />}
       <div className={styles.titleContainer}>
         <h1 className={styles.title}>Cloudinary Images</h1>
         {/* upload button */}
-            <Button
-              icon={<AiOutlineUpload />}
-              type="primary"
-            >
-              Upload
-            </Button>
+        <Button
+          icon={<AiOutlineUpload />}
+          type="primary"
+          onClick={() => setShowModal(true)}
+        >
+          Upload
+        </Button>
       </div>
       <div className={styles.paginationContainer}>
         {prevCursors?.current.length > 0 && (
@@ -108,6 +125,28 @@ const CloudinaryImages = () => {
                           onOk: () => {
                             deleteImage(resource.public_id);
                           },
+                        });
+                      },
+                    },
+                    {
+                      label: 'Copy Link',
+                      key: '2',
+                      icon: <FaCopy />,
+                      onClick: () => {
+                        navigator.clipboard.writeText(resource.secure_url);
+                        message.success('Copied to clipboard');
+                      },
+                    },
+                    {
+                      label: 'View Details',
+                      key: '3',
+                      icon: <FaExternalLinkAlt />,
+                      onClick: () => {
+                        Modal.info({
+                          title: 'Image Details',
+                          content: <ImageDetails imageDetails={resource} />,
+                          // make the modal large by default
+                          width: '80%',
                         });
                       },
                     },

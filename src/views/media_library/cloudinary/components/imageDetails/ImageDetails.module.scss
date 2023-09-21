@@ -1,0 +1,52 @@
+@import '@/styles/globals.scss';
+.container {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  @include mobile {
+    flex-direction: column;
+  }
+  .imageContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 50%;
+    @include mobile {
+      width: 100%;
+    }
+    .sizeContainer {
+      display: flex;
+      justify-content: space-evenly;
+      span {
+        font-weight: 600;
+      }
+    }
+    .copyContainer {
+      display: flex;
+      align-items: center;
+      .inputContainer {
+        flex: 1;
+        .input {
+          width: 100%;
+        }
+      }
+      .copyButton {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+  .detailsContainer {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    @include mobile {
+      width: 100%;
+    }
+    .inputContainer {
+      .input {
+      }
+    }
+  }
+}
