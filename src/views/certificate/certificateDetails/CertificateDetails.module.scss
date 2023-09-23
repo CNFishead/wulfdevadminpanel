@@ -1,0 +1,59 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .certificateTitleContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    .certificateTitleHeader {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    .certificateTitle {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    .certificateId {
+      font-weight: 300;
+      color: gray;
+    }
+  }
+  .contentContainer {
+    display: flex;
+    height: 100%;
+    .leftContainer {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      height: 100%;
+      .imageUploadContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        .imageContainer {
+          width: 100%;
+        }
+        .imageUploadText {
+          // muted theme
+          display: flex;
+          color: var(--primary-light);
+          font-size: 0.8rem;
+          margin: 0 0 0.5rem 0;
+        }
+      }
+    }
+    .rightContainer {
+      display: flex;
+      flex-direction: column;
+      padding: 2%;
+      width: 50%;
+    }
+  }
+}

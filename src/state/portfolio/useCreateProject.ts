@@ -23,7 +23,7 @@ export default () => {
   const router = useRouter();
   return useMutation((data: any) => updateProject(data), {
     onSuccess: (data: any) => {
-      console.log(data);
+      // console.log(data);
       message.success('Project Created');
       queryClient.invalidateQueries(['projectDetails']);
       // route the client to the updated project

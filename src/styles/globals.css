@@ -41,8 +41,8 @@ body {
 }
 
 body {
-  background: rgba(var(--secondary-rgb), .75);
-} 
+  background: rgba(var(--secondary-rgb), 0.75);
+}
 
 a {
   color: inherit;
@@ -63,4 +63,8 @@ input[type='number']::-webkit-inner-spin-button {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(var(--quaternary-rgb), 0.5);
 }

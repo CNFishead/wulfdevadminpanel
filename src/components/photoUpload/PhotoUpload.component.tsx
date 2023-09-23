@@ -31,6 +31,7 @@ type Props = {
   isAvatar?: boolean;
   imgStyle?: React.CSSProperties;
   form: FormInstance;
+  value?: string;
   // anonymous function that takes in a function
   // such as an onClose function
   onFinishAction?: (anonFunction: () => void) => void;
@@ -60,6 +61,12 @@ const PhotoUpload = (props: Props) => {
       setImageUrl(props.default);
     }
   }, [props.default]);
+
+  useEffect(() => {
+    if (props.value) {
+      setImageUrl(props.value);
+    }
+  }, [props.value]);
 
   useEffect(() => {
     // set the image to null when component unmounts

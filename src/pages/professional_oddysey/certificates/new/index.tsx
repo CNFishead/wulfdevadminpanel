@@ -1,6 +1,7 @@
 import PageLayout from '@/layout/page/Page.layout';
 import { navigation } from '@/data/navigation';
 import CertificateList from '@/views/certificate/CertificateList.screen';
+import CertificateDetails from '@/views/certificate/certificateDetails/CertificateDetails.view';
 const Certificates = () => {
   return (
     <>
@@ -8,7 +9,7 @@ const Certificates = () => {
         pages={[navigation().professional_oddysey.links.certificates]}
         largeSideBar={true}
       >
-        <CertificateList />
+        <CertificateDetails />
       </PageLayout>
     </>
   );

@@ -3,7 +3,7 @@ import axios from '@/utils/axios';
 import { useSearchStore } from '../search/search';
 
 //query to retrieve user videos
-export const fetchBlogs = async (options?: {
+export const fetchCertificates = async (options?: {
   defaultKeyword?: string;
   defaultPageNumber?: number;
   defaultPageLimit?: number;
@@ -22,7 +22,7 @@ export const fetchBlogs = async (options?: {
   // console.log(filter);
 
   const { data } = await axios.get(
-    `/blog?keyword=${keyword}&pageNumber=${pageNumber}&limit=${pageLimit}&filterOptions=${filter}&sortBy=${sort}`
+    `/certificate?keyword=${keyword}&pageNumber=${pageNumber}&limit=${pageLimit}&filterOptions=${filter}&sortBy=${sort}`
   );
 
   // data should contain a property pages, which is the number of pages, which we can pass to zustand's setNumberPages
@@ -53,9 +53,9 @@ export default (options?: {
   onError?: (error: any) => void;
 }) => {
   const query = useQuery(
-    ['featuredBlogs'],
+    ['certificate'],
     () =>
-      fetchBlogs({
+      fetchCertificates({
         defaultFilter: options?.filter,
         defaultKeyword: options?.keyword,
         defaultPageLimit: options?.pageLimit,
