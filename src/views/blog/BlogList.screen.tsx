@@ -8,9 +8,11 @@ import { BsPlus, BsTrash2Fill } from 'react-icons/bs';
 import { NProgressLoader } from '@/components/nprogress/NProgressLoader.component';
 import Link from 'next/link';
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import useRemoveBlog from '@/state/blog/useRemoveBlog';
 
 const BlogList = () => {
   const { data, isLoading, isError, error, isFetching } = useGetBlogData();
+  const { mutate: deleteBlog } = useRemoveBlog();
   if (isLoading) return <Skeleton active />;
   if (isError) return <Error error={error} />;
 
@@ -22,7 +24,7 @@ const BlogList = () => {
             {
               icon: <BsPlus />,
               onClick: () => {},
-              href: '/professional_oddysey/blogs/new',
+              href: '/professional_oddysey/blog/new',
               type: 'primary',
               toolTip: 'Create a new blog',
             },
@@ -194,7 +196,7 @@ const BlogList = () => {
                       style={{ display: 'flex', width: '100%', gap: '10px' }}
                     >
                       {/* render a next/link as a button */}
-                      <Link href={`/professional_oddysey/blogs/${record._id}`}>
+                      <Link href={`/professional_oddysey/blog/${record._id}`}>
                         <Button type="primary">Edit</Button>
                       </Link>
 
@@ -207,7 +209,7 @@ const BlogList = () => {
                             okText: 'Delete',
                             okButtonProps: { danger: true },
                             onOk: () => {
-                              // deleteProject(record._id);
+                              deleteBlog(record._id);
                               Modal.destroyAll();
                             },
                           })

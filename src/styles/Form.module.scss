@@ -1,0 +1,83 @@
+@import './globals.scss';
+
+.editContainer {
+  background-color: white;
+  border-radius: 10px;
+  padding: 50px;
+  margin: 20px 0;
+}
+.form {
+  label {
+    font-size: 15px;
+    font-weight: 400;
+    color: $color-blue;
+    @include mobile {
+      font-size: 13px;
+    }
+  }
+
+  select {
+    padding: 16px 13px !important;
+  }
+  .input {
+    margin-bottom: 20px;
+    border-radius: 10px;
+    margin: 0;
+    background-color: white;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 400;
+    color: $color-dark;
+    width: 100%;
+    border: none;
+    input {
+      background-color: white;
+    }
+
+    &:focus {
+      outline: none;
+      background-color: var(--primary-light);
+    }
+    &:disabled {
+      background-color: var(--primary-light);
+    }
+    @include mobile {
+      font-size: 13px;
+    }
+  }
+
+  .group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .header {
+    color: $color-dark !important;
+    font-size: 18px !important;
+    font-weight: 700;
+    margin-bottom: 20px;
+
+    @include mobile {
+      font-size: 17px !important;
+    }
+  }
+}
+
+.button {
+  margin-top: 20px;
+  background-color: $color-blue;
+  padding: 0 50px;
+  font-weight: 600;
+  width: 100%;
+
+  @include mobile {
+    width: 100%;
+  }
+
+  &:hover {
+    background-color: $color-dark;
+  }
+}
