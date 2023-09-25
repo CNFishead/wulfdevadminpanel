@@ -15,23 +15,20 @@ const TinyEditor = ({ handleChange, initialContent }) => {
       apiKey="dh9kclzz1mh67rg0cyvkmrqs6rso8b5aunovwvd57l9fz4qw"
       init={{
         height: 500,
-        menubar: "insert view format table tools help",
+        menubar: 'insert view format table tools help',
         plugins: [
-          "advlist autolink lists link image charmap print preview anchor codesample",
-          "searchreplace visualblocks code fullscreen",
-          "insertdatetime media table paste code help wordcount autolink",
+          'advlist autolink lists link image charmap print preview anchor codesample',
+          'searchreplace visualblocks code fullscreen',
+          'insertdatetime media table paste code help wordcount autolink',
         ],
         toolbar:
-          "undo redo | formatselect | image | codesample |" +
-          "bold italic backcolor | alignleft aligncenter " +
-          "alignright alignjustify | bullist numlist outdent indent | " +
-          "removeformat | help",
+          'undo redo | formatselect | bold italic underline strikethrough | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | link unlink image media | codesample | searchreplace visualblocks code fullscreen | insertdatetime table | help wordcount',
         content_style:
-          "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+          'body { font-family: Helvetica, Arial, sans-serif; font-size: 14px }',
         codesample_languages: [
-          { text: "HTML/XML", value: "markup" },
-          { text: "JavaScript", value: "javascript" },
-          { text: "CSS", value: "css" },
+          { text: 'HTML/XML', value: 'markup' },
+          { text: 'JavaScript', value: 'javascript' },
+          { text: 'CSS', value: 'css' },
         ],
       }}
     />

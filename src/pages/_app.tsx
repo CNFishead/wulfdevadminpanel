@@ -38,7 +38,6 @@ export default function App({ Component, pageProps }: AppProps) {
           token: {
             colorPrimary: 'rgb(23, 107, 135)',
           },
-          // table, every other row
         }}
         // set tables to have every other row a different color
         table={{

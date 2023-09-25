@@ -41,6 +41,7 @@ const PhotoUpload = (props: Props) => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState(props.default);
   const inputRef = useRef<any>();
+  // console.log(props.default);
 
   const beforeUpload = async (file: RcFile) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -110,7 +111,7 @@ const PhotoUpload = (props: Props) => {
   return (
     <>
       <Form.Item
-        label={props.label ? props.label : 'Image'}
+        label={props.label ?? ''}
         name={props.name ? props.name : 'image'}
         tooltip={props.tooltip ? props.tooltip : undefined}
       >

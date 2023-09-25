@@ -1,3 +1,4 @@
+@import '@/styles/globals.scss';
 .container {
   .blogTitleContainer {
     display: flex;
@@ -36,18 +37,42 @@
     }
   }
   .contentContainer {
+  }
+  .imageUploadContainer {
     display: flex;
-    height: 100%;
-    .leftContainer {
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    .imageContainer {
+      width: 75%;
+      height: 100%;
+    }
+    .imageUploadText {
+      // muted theme
+      display: flex;
+      color: var(--primary-light);
+      font-size: 0.8rem;
+      margin: 0 0 0.5rem 0;
+    }
+  }
+
+  .footer{
+    margin-top: 1rem;
+
+  }
+}
+
+@include tablet {
+  .container {
+    .contentContainer {
       display: flex;
       flex-direction: column;
-      width: 50%;
-      height: 100%;
+      gap: 0;
+      width: 100%;
       .imageUploadContainer {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        width: 100%;
+        width: 50%;
         .imageContainer {
           width: 100%;
         }
@@ -59,12 +84,9 @@
           margin: 0 0 0.5rem 0;
         }
       }
-    }
-    .rightContainer {
-      display: flex;
-      flex-direction: column;
-      padding: 2%;
-      width: 50%;
+      .formContainer {
+        width: 100%;
+      }
     }
   }
 }

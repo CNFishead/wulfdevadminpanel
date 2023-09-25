@@ -68,3 +68,12 @@ input[type='number']::-webkit-inner-spin-button {
 .table-striped tbody tr:nth-of-type(odd) {
   background-color: rgba(var(--quaternary-rgb), 0.5);
 }
+
+.ant-select-selector {
+  max-height: 75px;
+  overflow-y: auto;
+}
+/* hide the scroll bar for ant-select-selector */
+.ant-select-selector::-webkit-scrollbar {
+  display: none;
+}

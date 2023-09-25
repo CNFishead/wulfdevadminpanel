@@ -50,9 +50,9 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     justify-content: center;
-    align-items: center;
+    // align-items: center;
     gap: 10px;
-  }
+}
 
   .header {
     color: $color-dark !important;
