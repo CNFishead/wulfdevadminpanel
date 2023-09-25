@@ -182,11 +182,6 @@ const BlogList = () => {
                 key: 'comments',
               },
               {
-                title: 'Likes',
-                dataIndex: 'likesCount',
-                key: 'likes',
-              },
-              {
                 title: 'Actions',
                 dataIndex: 'actions',
                 key: 'actions',
