@@ -33,10 +33,10 @@
 
     &:focus {
       outline: none;
-      background-color: var(--primary-light);
+      background-color: var(--quaternary-light);
     }
     &:disabled {
-      background-color: var(--primary-light);
+      background-color: var(--quaternary-dark);
     }
     @include mobile {
       font-size: 13px;
