@@ -7,7 +7,8 @@ import Error from '@/components/error/Error.component';
 import { BsPlus, BsTrash2Fill } from 'react-icons/bs';
 import { NProgressLoader } from '@/components/nprogress/NProgressLoader.component';
 import Link from 'next/link';
-import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import { FaCheckCircle, FaEdit, FaTimesCircle } from 'react-icons/fa';
+import { GoLinkExternal } from 'react-icons/go';
 import useRemoveBlog from '@/state/blog/useRemoveBlog';
 
 const BlogList = () => {
@@ -192,7 +193,16 @@ const BlogList = () => {
                     >
                       {/* render a next/link as a button */}
                       <Link href={`/professional_oddysey/blog/${record._id}`}>
-                        <Button type="primary">Edit</Button>
+                        <Button
+                          type="primary"
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '5px',
+                          }}
+                        >
+                          <FaEdit /> Edit
+                        </Button>
                       </Link>
 
                       <Button
@@ -209,9 +219,25 @@ const BlogList = () => {
                             },
                           })
                         }
-                        style={{ display: 'flex', alignItems: 'center' }}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '5px',
+                        }}
                       >
                         <BsTrash2Fill /> Delete
+                      </Button>
+                      <Button
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '5px',
+                        }}
+                        href={`https://blog.austinhoward.dev/${record._id}`}
+                        disabled={true} // till the blog site is built
+                      >
+                        <GoLinkExternal />
+                        View
                       </Button>
                     </div>
                   );

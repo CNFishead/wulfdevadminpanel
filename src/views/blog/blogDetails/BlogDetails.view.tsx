@@ -13,7 +13,6 @@ import ContentContainer from './content/ContentContainer.view';
 import capitalizeWords from '@/utils/capitalizeWords';
 import MetaDetails from './metaDetails/MetaDetails.view';
 import CoverPhotoContainer from './coverPhoto/CoverPhotoContainer.view';
-import { set } from 'nprogress';
 
 const BlogDetails = () => {
   const router = useRouter();
@@ -44,12 +43,7 @@ const BlogDetails = () => {
   const [views, setViews] = React.useState([
     {
       name: 'meta details',
-      component: (
-        <MetaDetails
-          form={form}
-          onFinish={() => onFinish(form.getFieldsValue())}
-        />
-      ),
+      component: <MetaDetails />,
       hidden: false,
     },
     {
@@ -59,7 +53,7 @@ const BlogDetails = () => {
     },
     {
       name: 'content',
-      component: <ContentContainer/>,
+      component: <ContentContainer />,
       hidden: false,
     },
   ]);
@@ -75,6 +69,7 @@ const BlogDetails = () => {
     // invalidate the projectDetails query when component unmounts
     return () => {
       queryClient.invalidateQueries(['blogDetails']);
+      queryClient.resetQueries(['blogDetails']);
       form.resetFields();
       // specifically set the photo to null
     };
@@ -91,11 +86,11 @@ const BlogDetails = () => {
             : 'Create a new blog'}
         </h1>
         {blogDetails && (
-          <p className={styles.blogTitle}>
+          <span className={styles.blogTitle}>
             <span className={styles.blogId}>
               <CopyField data={blogDetails?._id} />
             </span>
-          </p>
+          </span>
         )}
       </div>
       <Row>

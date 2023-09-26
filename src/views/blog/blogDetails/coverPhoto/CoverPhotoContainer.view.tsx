@@ -70,13 +70,14 @@ const CoverPhotoContainer = (props: Props) => {
             >
               <Input
                 onChange={() => setImageUrl(form.getFieldsValue().blogImageUrl)}
+                className={formStyles.input}
               />
             </Form.Item>
           </div>
         </div>
         <Row className={styles.footer} justify={'center'}>
           <Button
-            className={styles.submitButton}
+            className={formStyles.button}
             htmlType="submit"
             type="primary"
           >

@@ -8,24 +8,51 @@ import {
   Switch,
   Row,
   Button,
+  DatePicker,
 } from 'antd';
 import styles from '../BlogDetails.module.scss';
 import formStyles from '@/styles/Form.module.scss';
 import { useRouter } from 'next/router';
+import dayjs from 'dayjs';
+import useGetBlogDetails from '@/state/blog/useGetBlogDetails';
+import useUpdateBlog from '@/state/blog/useUpdateBlog';
+import useCreateBlog from '@/state/blog/useCreateBlog';
 
-interface Props {
-  form: any;
-  onFinish: () => void;
-}
+interface Props {}
 const MetaDetails = (props: Props) => {
   const router = useRouter();
   const { id } = router.query;
+  const { data } = useGetBlogDetails({
+    id: id as any,
+  });
+  const [form] = Form.useForm();
+  const { mutate: updateBlog } = useUpdateBlog();
+  const { mutate: createBlog } = useCreateBlog();
+
+  const onFinish = (values: any) => {
+    if (id) {
+      // update project
+      updateBlog({ ...values });
+    } else {
+      // create project
+      createBlog(values);
+    }
+  };
+
+  React.useEffect(() => {
+    if (data) {
+      form.setFieldsValue({
+        ...data,
+        writtenAt: dayjs(data?.writtenAt),
+      });
+    }
+  }, [data]);
   return (
     <div className={styles.container}>
       <Form
         layout="vertical"
-        form={props.form}
-        onFinish={props.onFinish}
+        form={form}
+        onFinish={onFinish}
         className={formStyles.form}
       >
         <div className={styles.contentContainer}>
@@ -36,19 +63,16 @@ const MetaDetails = (props: Props) => {
                 <Input />
               </Form.Item>
             </div>
-            <Form.Item
-              name="description"
-              label="Description"
-            >
-              <Input.TextArea autoSize={{ minRows: 3, maxRows: 5 }} />
-            </Form.Item>
             <div className={formStyles.group}>
               <Form.Item
                 name="blogTitle"
                 label="Title"
                 rules={[{ required: true }]}
               >
-                <Input />
+                <Input className={formStyles.input} />
+              </Form.Item>
+              <Form.Item name="writtenAt" label="Date Blog was written">
+                <DatePicker className={formStyles.input} allowClear={false} />
               </Form.Item>
               <Form.Item
                 name="tags"
@@ -58,7 +82,7 @@ const MetaDetails = (props: Props) => {
                 <Select
                   mode="tags"
                   placeholder="Select Languages"
-                  className={`${formStyles.input} ${formStyles.select}`}
+                  className={`${formStyles.input}`}
                   tokenSeparators={[',']}
                   filterOption={(input: string, option: any) =>
                     (option?.label ?? '')
@@ -68,6 +92,12 @@ const MetaDetails = (props: Props) => {
                 ></Select>
               </Form.Item>
             </div>
+            <Form.Item name="description" label="Description">
+              <Input.TextArea
+                autoSize={{ minRows: 3, maxRows: 5 }}
+                className={formStyles.input}
+              />
+            </Form.Item>
           </div>
           <div className={formStyles.editContainer}>
             {/* booleans */}
@@ -104,7 +134,8 @@ const MetaDetails = (props: Props) => {
         </div>
         <Row className={styles.footer} justify={'center'}>
           <Button
-            className={styles.submitButton}
+            // className={styles.submitButton}
+            className={formStyles.button}
             htmlType="submit"
             type="primary"
           >

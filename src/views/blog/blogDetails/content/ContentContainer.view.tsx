@@ -4,11 +4,9 @@ import TinyEditor from '@/components/tinyEditor/TinyEditor.component';
 import { useRouter } from 'next/router';
 import useUpdateBlog from '@/state/blog/useUpdateBlog';
 import useCreateBlog from '@/state/blog/useCreateBlog';
-import BlogType from '@/types/BlogType';
 import styles from '../BlogDetails.module.scss';
 import formStyles from '@/styles/Form.module.scss';
 import useGetBlogDetails from '@/state/blog/useGetBlogDetails';
-import { set } from 'nprogress';
 
 interface Props {}
 const ContentContainer = (props: Props) => {
@@ -67,7 +65,7 @@ const ContentContainer = (props: Props) => {
         </Form.Item>
         <Row className={styles.footer} justify={'center'}>
           <Button
-            className={styles.submitButton}
+            className={formStyles.button}
             htmlType="submit"
             type="primary"
           >
