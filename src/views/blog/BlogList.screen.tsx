@@ -121,8 +121,8 @@ const BlogList = () => {
                   // cut it off at 100 characters
                   const cutOff = 100;
                   const description = record.description;
-                  const shortDescription = description.substring(0, cutOff);
-                  const isShortDescription = description.length > cutOff;
+                  const shortDescription = description?.substring(0, cutOff);
+                  const isShortDescription = description?.length > cutOff;
                   return (
                     <div>
                       {shortDescription}
