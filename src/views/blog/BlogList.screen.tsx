@@ -132,9 +132,9 @@ const BlogList = () => {
                 },
               },
               {
-                title: 'Featured Blog',
-                dataIndex: 'isFeatured',
-                key: 'isFeatured',
+                title: 'Published Blog',
+                dataIndex: 'isPublished',
+                key: 'isPublished',
                 render: (text: any, record: any) => {
                   return (
                     <div>

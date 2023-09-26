@@ -61,7 +61,7 @@ const ContentContainer = (props: Props) => {
                 // gets the value from the editor and sets it to the form
                 (value: string) => form.setFieldsValue({ content: value })
               }
-              initialContent={initialContent}
+              initialContent={initialContent ?? ''}
             />
           )}
         </Form.Item>

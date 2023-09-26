@@ -39,7 +39,6 @@ const MetaDetails = (props: Props) => {
             <Form.Item
               name="description"
               label="Description"
-              rules={[{ required: true }]}
             >
               <Input.TextArea autoSize={{ minRows: 3, maxRows: 5 }} />
             </Form.Item>
