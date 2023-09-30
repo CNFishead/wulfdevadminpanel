@@ -76,7 +76,6 @@ export const navigation = (options?: { loggedInData?: { user: any } }) => {
           title: 'Account Settings',
           link: '/settings',
           icon: <MdSettings />,
-          disabled: true,
         },
       },
     },
