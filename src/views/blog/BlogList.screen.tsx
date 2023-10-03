@@ -253,8 +253,7 @@ const BlogList = () => {
                           alignItems: 'center',
                           gap: '5px',
                         }}
-                        href={`https://blog.austinhoward.dev/${record._id}`}
-                        disabled={true} // till the blog site is built
+                        href={`https://blog.austinhoward.dev/blog/${record.slug}`}
                       >
                         <GoLinkExternal />
                         View
