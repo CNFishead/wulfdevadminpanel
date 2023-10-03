@@ -139,6 +139,26 @@ const BlogList = () => {
                 render: (text: any, record: any) => {
                   return (
                     <div>
+                      {record.isPublished ? (
+                        <span style={{ color: 'green' }}>
+                          <FaCheckCircle />
+                        </span>
+                      ) : (
+                        <span style={{ color: 'red' }}>
+                          <FaTimesCircle />
+                        </span>
+                      )}
+                    </div>
+                  );
+                },
+              },
+              {
+                title: 'Featured Blog',
+                dataIndex: 'isFeatured',
+                key: 'isFeatured',
+                render: (text: any, record: any) => {
+                  return (
+                    <div>
                       {record.isFeatured ? (
                         <span style={{ color: 'green' }}>
                           <FaCheckCircle />
