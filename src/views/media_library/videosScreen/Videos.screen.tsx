@@ -1,14 +1,15 @@
 import useGetCloudinaryImages from '@/state/media/useGetCloudinaryImages';
-import styles from './ImagesScreen.module.scss';
+import styles from './Videos.module.scss';
 import React from 'react';
 import { Button, Modal } from 'antd';
 import Link from 'next/link';
 import SelectableItem from '@/components/selectableItem/SelectableItem.component';
-import { FaTrash } from 'react-icons/fa';
+import { FaEye, FaTrash } from 'react-icons/fa';
 import useRemoveCloudinaryImage from '@/state/media/useRemoveCloudinaryImage';
 import { NProgressLoader } from '@/components/nprogress/NProgressLoader.component';
+import removeExtension from '@/utils/removeExtension';
 
-const ImagesScreen = () => {
+const Videos = () => {
   const [nextCursor, setNextCursor] = React.useState<string>('');
   const prevCursors = React.useRef<string[]>([]); // Initialize as an empty array
   const { mutate: deleteImage, isLoading: deleteLoading } =
@@ -42,7 +43,7 @@ const ImagesScreen = () => {
     <div className={styles.container}>
       {(cloudinaryLoading || deleteLoading) && <NProgressLoader />}
       <div className={styles.titleContainer}>
-        <h1 className={styles.title}>Cloudinary Images</h1>
+        <h1 className={styles.title}>Cloudinary Videos</h1>
         <Link href={'/media_library/cloudinary'} className={styles.seeMoreLink}>
           <Button>See All</Button>
         </Link>
@@ -54,9 +55,27 @@ const ImagesScreen = () => {
             return (
               <SelectableItem
                 key={resource.asset_id}
-                imageUrl={resource.secure_url}
+                imageUrl={removeExtension(resource.secure_url) + '.jpg'}
                 link={''}
                 options={[
+                  {
+                    label: 'View',
+                    key: '0',
+                    danger: false,
+                    icon: <FaEye />,
+                    onClick: () => {
+                      Modal.info({
+                        title: 'Video Preview',
+                        content: (
+                          <video
+                            width="100%"
+                            controls
+                            src={resource.secure_url}
+                          ></video>
+                        ),
+                      });
+                    },
+                  },
                   {
                     label: 'Delete',
                     key: '1',
@@ -94,4 +113,4 @@ const ImagesScreen = () => {
   );
 };
 
-export default ImagesScreen;
+export default Videos;

@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './SideBar.module.scss';
-import { navigation } from '@/data/navigation';
-import { Button } from 'antd';
+import { navigation } from '@/data/navigation'; 
 import Link from 'next/link';
 import Image from 'next/image';
 import { RxHamburgerMenu } from 'react-icons/rx';
@@ -30,19 +29,7 @@ const SideBar = (props: Props) => {
           >
             <RxHamburgerMenu />
           </div>
-        )}
-
-        {/* <Image
-          src="/images/TruthcastingSaltLogo.png"
-          width={20}
-          height={50}
-          className={styles.logo + ' ' + styles.saltLogo}
-          style={{
-            objectFit: 'contain',
-          }}
-          alt="logo"
-        /> */}
-
+        )} 
         <Image
           src="https://res.cloudinary.com/wulfdev/image/upload/v1694791729/devportfolio/brand-logo-photo_eijw5h.png"
           width={100}

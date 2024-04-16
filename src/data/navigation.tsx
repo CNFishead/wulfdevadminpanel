@@ -64,8 +64,7 @@ export const navigation = (options?: { loggedInData?: { user: any } }) => {
         videos: {
           title: 'Videos',
           link: '/media_library/videos',
-          icon: <FaCamera />,
-          disabled: true,
+          icon: <FaCamera />, 
         },
       },
     },
