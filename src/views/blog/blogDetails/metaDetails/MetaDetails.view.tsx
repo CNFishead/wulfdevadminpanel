@@ -129,6 +129,15 @@ const MetaDetails = (props: Props) => {
                   <Switch />
                 </Form.Item>
               </Tooltip>
+              <Tooltip title="Vlogs are video blogs, if this includes a video post to go with it, please select this true.">
+                <Form.Item
+                  name="isVlog"
+                  label="Vlog"
+                  valuePropName="checked"
+                >
+                  <Switch />
+                </Form.Item>
+              </Tooltip>
             </div>
           </div>
         </div>

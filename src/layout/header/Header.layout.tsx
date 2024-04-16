@@ -5,7 +5,7 @@ import { Avatar, Breadcrumb, Tooltip } from 'antd';
 import Link from 'next/link';
 import { useUser, logout } from '@/state/auth';
 import { BiLogOutCircle } from 'react-icons/bi';
-import { ReactNode } from 'react';
+import { ReactNode, useRef } from 'react';
 import Notifications from './components/Notifications.component';
 
 type Props = {
@@ -15,7 +15,7 @@ type Props = {
 const Header = (props: Props) => {
   const toggleSideBar = useLayoutStore((state) => state.toggleSideBar);
   const { data: loggedInData } = useUser();
-
+  const iconRef = useRef(null);
   return (
     <div className={styles.header}>
       <div className={styles.headerLeft}>
@@ -73,13 +73,15 @@ const Header = (props: Props) => {
               </div>
             </div>
             <Notifications />
-            <Tooltip title="Logout">
-              <BiLogOutCircle
-                className={styles.logoutIcon}
-                onClick={() => {
-                  logout();
-                }}
-              />
+            <Tooltip title="Logout" ref={iconRef}>
+              <span>
+                <BiLogOutCircle
+                  className={styles.logoutIcon}
+                  onClick={() => {
+                    logout();
+                  }}
+                />
+              </span>
             </Tooltip>
           </div>
         </div>

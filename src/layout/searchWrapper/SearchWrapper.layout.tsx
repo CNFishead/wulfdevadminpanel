@@ -6,10 +6,8 @@ import {
   Dropdown,
   Input,
   Pagination,
-  Popover,
   Skeleton,
   Space,
-  Switch,
   Tooltip,
 } from 'antd';
 import { useEffect, useState } from 'react';
@@ -18,7 +16,7 @@ import { AiFillFilter } from 'react-icons/ai';
 import styles from './SearchWrapper.module.scss';
 
 import type { MenuProps } from 'antd';
-import { MdFilter, MdSort } from 'react-icons/md';
+import { MdSort } from 'react-icons/md';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
@@ -226,6 +224,7 @@ const SearchWrapper = (props: Props) => {
             setPageNumber(page);
           }}
           current={pageNumber}
+
           pageSize={pageLimit}
           showSizeChanger={true}
           onShowSizeChange={(current, size) => {

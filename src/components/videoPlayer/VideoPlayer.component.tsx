@@ -25,23 +25,12 @@ const VideoPlayer = (props: Props) => {
       muteToggle: false,
       timeDivider: false,
       durationDisplay: true,
-      progressControl:
-        props.video.status === 'streaming' || props.video.status === 'prestream'
-          ? false
-          : true,
+      progressControl: true,
     },
     sources: [
       {
-        src:
-          props.video.status === 'streaming' ||
-          props.video.status === 'prestream'
-            ? `https://${props.video.videoUrl}/tcproedge/_definst_/MP4:${props.video.user.username}/${props.video.user.livestream.pass}/playlist.m3u8`
-            : props.video.videoUrl,
-        type:
-          props.video.status === 'streaming' ||
-          props.video.status === 'prestream'
-            ? 'application/x-mpegURL'
-            : 'video/mp4',
+        src: props.video.videoUrl,
+        type: 'video/mp4',
       },
     ],
   };

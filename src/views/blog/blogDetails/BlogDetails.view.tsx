@@ -13,10 +13,12 @@ import ContentContainer from './content/ContentContainer.view';
 import capitalizeWords from '@/utils/capitalizeWords';
 import MetaDetails from './metaDetails/MetaDetails.view';
 import CoverPhotoContainer from './coverPhoto/CoverPhotoContainer.view';
+import VideoContent from './videoContent/VideoContent.component';
 
 const BlogDetails = () => {
   const router = useRouter();
   const { id } = router.query;
+  console.log(id);
   const {
     data: blogDetails,
     isLoading,
@@ -40,6 +42,7 @@ const BlogDetails = () => {
       createBlog(values);
     }
   };
+  console.log(!id);
   const [views, setViews] = React.useState([
     {
       name: 'meta details',
@@ -49,12 +52,17 @@ const BlogDetails = () => {
     {
       name: 'Cover Photo',
       component: <CoverPhotoContainer data={blogDetails} />,
-      hidden: false,
+      hidden: !id,
     },
     {
       name: 'content',
       component: <ContentContainer />,
-      hidden: false,
+      hidden: !id,
+    },
+    {
+      name: 'vlog content',
+      component: <VideoContent />,
+      hidden: !id,
     },
   ]);
   React.useEffect(() => {
@@ -117,13 +125,15 @@ const BlogDetails = () => {
       <div className={styles.tabsContainer}>
         <Tabs
           defaultActiveKey={views[0].name}
-          items={views.map((view) => {
-            return {
-              label: capitalizeWords(view.name),
-              key: view.name,
-              children: view.component,
-            };
-          })}
+          items={views
+            .filter((item) => !item.hidden)
+            .map((view) => {
+              return {
+                label: capitalizeWords(view.name),
+                key: view.name,
+                children: view.component,
+              };
+            })}
         />
       </div>
     </div>

@@ -86,7 +86,7 @@ const Auth = (props: Props) => {
         >
           <defs>
             <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">
-              <stop stop-color="rgba(35, 38, 42, 1)" offset="0%"></stop>
+              <stop stopColor="rgba(35, 38, 42, 1)" offset="0%"></stop>
               <stop
                 stopColor="rgba(56.41, 78.248, 107.365, 1)"
                 offset="100%"
