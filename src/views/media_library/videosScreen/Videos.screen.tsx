@@ -1,22 +1,27 @@
-import useGetCloudinaryImages from '@/state/media/useGetCloudinaryImages';
 import styles from './Videos.module.scss';
 import React from 'react';
-import { Button, Modal } from 'antd';
-import Link from 'next/link';
+import { Button, Empty, Modal, Upload, UploadProps, message } from 'antd';
 import SelectableItem from '@/components/selectableItem/SelectableItem.component';
-import { FaEye, FaTrash } from 'react-icons/fa';
+import { FaCopy, FaEye, FaTrash } from 'react-icons/fa';
 import useRemoveCloudinaryImage from '@/state/media/useRemoveCloudinaryImage';
 import { NProgressLoader } from '@/components/nprogress/NProgressLoader.component';
 import removeExtension from '@/utils/removeExtension';
+import useGetCloudinaryVideos from '@/state/media/useGetCloudinaryVideos';
+import { useUser } from '@/state/auth';
+import { AiOutlineUpload } from 'react-icons/ai';
+import { useQueryClient } from '@tanstack/react-query';
 
 const Videos = () => {
   const [nextCursor, setNextCursor] = React.useState<string>('');
   const prevCursors = React.useRef<string[]>([]); // Initialize as an empty array
+  const queryClient = useQueryClient();
   const { mutate: deleteImage, isLoading: deleteLoading } =
-    useRemoveCloudinaryImage();
+    useRemoveCloudinaryImage(() => {
+      queryClient.invalidateQueries(['cloudinaryVideos']);
+    });
   const { data: cloudinaryData, isLoading: cloudinaryLoading } =
-    useGetCloudinaryImages(nextCursor);
-
+    useGetCloudinaryVideos(nextCursor);
+  const { data: loggedInData } = useUser();
   // Function to fetch the next page of data
   const fetchNextPage = () => {
     prevCursors.current.push(nextCursor); // Save the current nextCursor
@@ -38,17 +43,55 @@ const Videos = () => {
       setNextCursor('');
     }
   };
-
+  const props: UploadProps = {
+    name: 'file',
+    action:
+      process.env.NODE_ENV === 'production'
+        ? process.env.API_URL + '/upload/cloudinary-video'
+        : 'http://localhost:5000/api/v1/upload/cloudinary-video',
+    headers: {
+      authorization: `Bearer ${loggedInData.user?.token}`,
+    },
+    onChange(info) {
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (info.file.status === 'done') {
+        message.success(`${info.file.name} file uploaded successfully`);
+        // invalidate the query
+        queryClient.invalidateQueries(['cloudinaryVideos']);
+      } else if (info.file.status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+  };
   return (
     <div className={styles.container}>
-      {(cloudinaryLoading || deleteLoading) && <NProgressLoader />}
       <div className={styles.titleContainer}>
         <h1 className={styles.title}>Cloudinary Videos</h1>
-        <Link href={'/media_library/cloudinary'} className={styles.seeMoreLink}>
-          <Button>See All</Button>
-        </Link>
+        {/* upload button */}
+        <Upload {...props}>
+          <Button icon={<AiOutlineUpload />}>Click to Upload</Button>
+        </Upload>
+      </div>
+      {(cloudinaryLoading || deleteLoading) && <NProgressLoader />}
+
+      <div className={styles.paginationContainer}>
+        {prevCursors?.current.length > 0 && (
+          <Button onClick={fetchPreviousPage}>Prev</Button>
+        )}
+        {cloudinaryData?.data?.next_cursor && (
+          <Button onClick={fetchNextPage}>Next</Button>
+        )}
       </div>
       <div className={styles.videosContainer}>
+        {cloudinaryData?.data?.resources?.length === 0 && (
+          <div
+            style={{ display: 'flex', justifyContent: 'center', width: '100%' }}
+          >
+            <Empty description="No videos found" />
+          </div>
+        )}
         {
           // @ts-ignore
           cloudinaryData?.data?.resources?.map((resource) => {
@@ -77,6 +120,15 @@ const Videos = () => {
                     },
                   },
                   {
+                    label: 'Copy Link',
+                    key: '2',
+                    icon: <FaCopy />,
+                    onClick: () => {
+                      navigator.clipboard.writeText(resource.secure_url);
+                      message.success('Copied to clipboard');
+                    },
+                  },
+                  {
                     label: 'Delete',
                     key: '1',
                     danger: true,
@@ -88,7 +140,10 @@ const Videos = () => {
                         okText: 'Yes',
                         cancelText: 'No',
                         onOk: () => {
-                          deleteImage(resource.public_id);
+                          deleteImage({
+                            id: resource.public_id,
+                            resourceType: 'video',
+                          });
                         },
                       });
                     },
@@ -100,14 +155,6 @@ const Videos = () => {
             );
           })
         }
-      </div>
-      <div className={styles.paginationContainer}>
-        {prevCursors?.current.length > 0 && (
-          <Button onClick={fetchPreviousPage}>Prev</Button>
-        )}
-        {cloudinaryData?.data?.next_cursor && (
-          <Button onClick={fetchNextPage}>Next</Button>
-        )}
       </div>
     </div>
   );

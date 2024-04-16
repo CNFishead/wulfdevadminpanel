@@ -15,12 +15,15 @@ type Props = {
   children: React.ReactNode;
   options: MenuProps['items'];
   loading?: boolean;
+  isLink?: boolean;
 };
 
 const SelectableItem = (props: Props) => {
   const [hoverEllipsis, setHoverEllipsis] = useState(false);
+
+  const WrappedComponent = props.isLink ? Link : 'div';
   return (
-    <Link
+    <WrappedComponent
       className={styles.wrapper}
       href={hoverEllipsis || props.link === '' ? '#' : props.link}
     >
@@ -33,7 +36,7 @@ const SelectableItem = (props: Props) => {
             width={200}
             height={130}
             className={styles.image}
-          />{' '}
+          />
           <div className={styles.overlay}>
             {props.overlayChildren}
             {props.options && props.options?.length > 0 && (
@@ -61,7 +64,7 @@ const SelectableItem = (props: Props) => {
 
         <div className={styles.videoDetails}>{props.children}</div>
       </div>
-    </Link>
+    </WrappedComponent>
   );
 };
 

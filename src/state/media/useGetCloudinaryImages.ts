@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const fetchImages = async (nextCursor: string | undefined) => {
   const { data } = await axios.get(
-    `/cloudinary/videos?nextCursor=${nextCursor}`
+    `/cloudinary?nextCursor=${nextCursor}`
   );
   return data;
 };

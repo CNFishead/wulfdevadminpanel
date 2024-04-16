@@ -1,29 +1,29 @@
 import React from 'react';
 import styles from './CloudinaryImages.module.scss';
 import useGetCloudinaryImages from '@/state/media/useGetCloudinaryImages';
-import { Modal, Button, Form, Upload, UploadProps, message } from 'antd';
-import { FaCopy, FaExternalLinkAlt, FaTrash, FaUpload } from 'react-icons/fa';
+import { Modal, Button, Form, message } from 'antd';
+import { FaCopy, FaExternalLinkAlt, FaTrash } from 'react-icons/fa';
 import useRemoveCloudinaryImage from '@/state/media/useRemoveCloudinaryImage';
 import SelectableItem from '@/components/selectableItem/SelectableItem.component';
 import { NProgressLoader } from '@/components/nprogress/NProgressLoader.component';
 import PhotoUpload from '@/components/photoUpload/PhotoUpload.component';
 import { AiOutlineUpload } from 'react-icons/ai';
 import { useQueryClient } from '@tanstack/react-query';
-import axios from '@/utils/axios';
 import { useRouter } from 'next/router';
-import { BsFillTrashFill } from 'react-icons/bs';
 import ImageDetails from './components/imageDetails/ImageDetails.component';
+import removeExtension from '@/utils/removeExtension';
 
 const CloudinaryImages = () => {
-  const queryClient = useQueryClient();
-  const router = useRouter();
+  const queryClient = useQueryClient(); 
   const [imageUrl, setImageUrl] = React.useState<string>('');
   const [nextCursor, setNextCursor] = React.useState<string>('');
   const [showModal, setShowModal] = React.useState<boolean>(false);
   const [form] = Form.useForm();
   const prevCursors = React.useRef<string[]>([]); // Initialize as an empty array
   const { mutate: deleteImage, isLoading: deleteLoading } =
-    useRemoveCloudinaryImage();
+    useRemoveCloudinaryImage(() => {
+      queryClient.invalidateQueries(['cloudinary']);
+    });
   const { data: cloudinaryData, isLoading: cloudinaryLoading } =
     useGetCloudinaryImages(nextCursor);
 
@@ -83,7 +83,7 @@ const CloudinaryImages = () => {
 
       {(cloudinaryLoading || deleteLoading) && <NProgressLoader />}
       <div className={styles.titleContainer}>
-        <h1 className={styles.title}>Cloudinary Images</h1>
+        <h1 className={styles.title}>Cloudinary</h1>
         {/* upload button */}
         <Button
           icon={<AiOutlineUpload />}
@@ -108,7 +108,11 @@ const CloudinaryImages = () => {
             return (
               <div className={styles.imageContainer} key={resource.asset_id}>
                 <SelectableItem
-                  imageUrl={resource.secure_url}
+                  imageUrl={
+                    resource.resource_type === 'video'
+                      ? removeExtension(resource.secure_url) + '.jpg'
+                      : resource.secure_url
+                  }
                   link={''}
                   options={[
                     {
@@ -123,7 +127,10 @@ const CloudinaryImages = () => {
                           okText: 'Yes',
                           cancelText: 'No',
                           onOk: () => {
-                            deleteImage(resource.public_id);
+                            deleteImage({
+                              id: resource.public_id,
+                              resourceType: 'image',
+                            });
                           },
                         });
                       },
